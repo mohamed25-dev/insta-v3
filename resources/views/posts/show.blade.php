@@ -21,7 +21,6 @@
                       </div>
 
                       @can('update', $post)
-
                           <div class="text-gray-500">
                               <a href="/posts/{{ $post->id }}/edit"><i class="fas fa-edit"></i></a>
                               <span class="font-bold mx-2">|</span>  
@@ -39,6 +38,7 @@
                       {{-- @livewire('follow-button',['profile_id' => $post->user->id ], key($post->user->id)) --}}
                       @endcannot
                   </div>
+
                   <div class="border-b border-solid border-gray-300 h-full">
                       <div class="grid grid-cols-5 overflow-y-auto" id="commentArea">
                           <div class="col-span-1 m-3">
@@ -50,7 +50,8 @@
                                   href="/{{ $post->user->username }}">{{ $post->user->username }} </a>
                               <span>{{ $post->post_caption }}</span>
                           </div>
-                          {{-- @foreach ($post->comments as $comment)
+
+                          @foreach ($post->comments as $comment)
                           <div class="col-span-1 m-3">
                               <img src="{{ $comment->user->profile_photo_url }}"
                                   alt="{{ $comment->user->username }}" srcset="" class="rounded-full h-10 w-10 ">
@@ -60,7 +61,8 @@
                                   href="/{{ $comment->user->username }}">{{ $comment->user->username }} </a>
                               <span>{{ $comment->comment }}</span>
                               <div class="text-gray-500 text-xs">{{ $comment->created_at->format('M j o') }}  
-                                  @can('delete', $comment)
+                                  
+                                @can('delete', $comment)
                                   <form class="inline-block" action="{{ route('comments.destroy',$comment->id) }}" method="POST" >
                                       @csrf
                                       @method('DELETE')
@@ -69,22 +71,25 @@
                                       </button>
                                   </form>
                                   @endcan  
+
                                   @can('update', $comment)
                                   <a href="/comments/{{ $comment->id }}/edit" class="text-xs ms-2"><i class="fas fa-edit"></i></a>
                                   @endcan 
                               </div>
                           </div>
-                          @endforeach --}}
+                          @endforeach
                       </div>
                   </div>
+                  
                   <div class="flex flex-col" id="sec3">
                       {{-- @livewire('like-button', ['post_id' => $post->id], key($post->id))    --}}
                       <div class="border-b border-solid border-gray-300 ps-4 pb-1 text-xs">
                           {{ $post->created_at->format('M j o') }}
                       </div>                     
                   </div>
+
                   <div class="p-4" id="sec4">
-                      {{-- @if(Auth::check()) --}}
+                      @if(Auth::check())
                       <form action="/comments" method="post" autocomplete="off">
                           @csrf
                           <div class="flex flex-row items-center justify-between">
@@ -94,15 +99,14 @@
                               <button class="text-blue-500 font-semibold hover:text-blue-700" type="submit">{{__('Post')}}</button>
                           </div>
                       </form>
-                      {{-- @else
+                      @else
                       <a href="{{ route('login') }}" class="text-blue-500 text-sm">{{__('Log In')}}</a>
                       <span  class="text-sm">{{__(' to like or comment')}}</span>
-                      @endif --}}
+                      @endif
                   </div>
               </div>
           </div>
       </div>
   </div>
  
-  
 </x-app-layout>

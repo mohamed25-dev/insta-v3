@@ -78,6 +78,8 @@ class PostController extends Controller
             abort(404);
         }
 
+        $this->authorize('update', $post);
+
         return view('posts.edit', compact('post'));
     }
 
@@ -90,6 +92,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $this->authorize('update', $post);
+
         $data = request()->validate([
             'post_caption' => ['required'],
             'image_path' => ['nullable', 'image']
@@ -116,6 +120,8 @@ class PostController extends Controller
         if ($post == null) {
             abort(404);
         }
+
+        $this->authorize('delete', $post);
 
         $post->delete();
         Storage::delete("public/" . $post->image_path);

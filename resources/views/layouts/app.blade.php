@@ -39,8 +39,8 @@
             align-items: center;
             position: absolute;
             top: 0;
-            width:
-                height: 100%;
+            width: 100%;
+            height: 100%;
             background-color: rgba(0, 0, 0, 0.3);
         }
 
@@ -57,7 +57,6 @@
         }
 
     </style>
-
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
@@ -86,6 +85,33 @@
     @stack('modals')
 
     @livewireScripts
+
+    <script>
+        let img = document.getElementById('postImage');
+        let sec1 = document.getElementById('sec1');
+        let sec3 = document.getElementById('sec3');
+        let sec4 = document.getElementById('sec4');
+
+        if (img != null) {
+            var imgheight = img.offsetHeight;
+            var sec1Height = sec1.offsetHeight;
+            var sec3Height = sec3.offsetHeight;
+            var sec4Height = sec4.offsetHeight;
+
+            console.log('imgheight', imgheight)
+            var height = imgheight - (sec1Height + sec3Height + sec4Height);
+            document.getElementById("commentArea").style.maxHeight = height.toString() + "px";
+            console.log('height', height)
+
+        }
+
+        function copyToClipboard(id) {
+            var postlink = document.getElementById(id);
+            navigator.clipboard.writeText(postlink.value);
+            alert("The shareable link: " + postlink.value);
+        }
+    </script>
+
 </body>
 
 </html>
