@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +26,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('view-profile', function (User $user, User $profile) {
+            if ($profile->status == 'public' || $user->id == $profile->id || $user->following($profile)) {
+                return true;
+            }
+
+            return false;
+        });
     }
 }

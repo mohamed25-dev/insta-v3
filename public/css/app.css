@@ -1105,6 +1105,9 @@ select {
 .col-start-3 {
 	grid-column-start: 3;
 }
+.col-start-5 {
+	grid-column-start: 5;
+}
 .m-3 {
 	margin: 0.75rem;
 }
@@ -1126,6 +1129,10 @@ select {
 .mx-0 {
 	margin-left: 0px;
 	margin-right: 0px;
+}
+.my-10 {
+	margin-top: 2.5rem;
+	margin-bottom: 2.5rem;
 }
 .ml-3 {
 	margin-left: 0.75rem;
@@ -1228,6 +1235,9 @@ select {
 }
 .-mt-px {
 	margin-top: -1px;
+}
+.mb-3 {
+	margin-bottom: 0.75rem;
 }
 .block {
 	display: block;
@@ -1415,6 +1425,9 @@ select {
 .grid-cols-3 {
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+.grid-cols-12 {
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+}
 .grid-rows-2 {
 	grid-template-rows: repeat(2, minmax(0, 1fr));
 }
@@ -1426,6 +1439,9 @@ select {
 }
 .flex-wrap {
 	flex-wrap: wrap;
+}
+.items-start {
+	align-items: flex-start;
 }
 .items-center {
 	align-items: center;
@@ -1441,6 +1457,9 @@ select {
 }
 .justify-between {
 	justify-content: space-between;
+}
+.justify-around {
+	justify-content: space-around;
 }
 .gap-6 {
 	gap: 1.5rem;
@@ -1465,6 +1484,9 @@ select {
 	--tw-space-y-reverse: 0;
 	margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+.self-center {
+	align-self: center;
 }
 .overflow-hidden {
 	overflow: hidden;
@@ -1608,6 +1630,10 @@ select {
 .bg-gray-200 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+}
+.bg-blue-500 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
 	--tw-bg-opacity: 0.25;

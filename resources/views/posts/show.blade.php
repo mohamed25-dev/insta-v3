@@ -35,7 +35,7 @@
                       @endcan
 
                       @cannot('update', $post)
-                      {{-- @livewire('follow-button',['profile_id' => $post->user->id ], key($post->user->id)) --}}
+                      @livewire('follow-button',['profileId' => $post->user->id ], key($post->user->id))
                       @endcannot
                   </div>
 
@@ -82,7 +82,7 @@
                   </div>
                   
                   <div class="flex flex-col" id="sec3">
-                      {{-- @livewire('like-button', ['post_id' => $post->id], key($post->id))    --}}
+                      @livewire('like-button', ['postId' => $post->id], key($post->id))   
                       <div class="border-b border-solid border-gray-300 ps-4 pb-1 text-xs">
                           {{ $post->created_at->format('M j o') }}
                       </div>                     

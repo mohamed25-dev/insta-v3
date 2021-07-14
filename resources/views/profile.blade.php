@@ -21,7 +21,7 @@
                                     </x-jet-button>
                                 </a>
                             @else
-                                {{-- @livewire('follow-button',['profile_id' => $profile->id ], key($profile->id)) --}}
+                                @livewire('follow-button',['profileId' => $profile->id ], key($profile->id))
                             @endif
                         </div>
                         <div>
@@ -30,18 +30,13 @@
                                         class="font-semibold">{{ $profile->posts->count() }}</span>
                                     {{ __('posts') }}
                                 </li>
-                                {{-- <li class="me-10"><a href="{{ route('followers') }}"> --}}
-                                <li class="me-10"><a href="#">
-
+                                <li class="me-10"><a href="{{ route('followers') }}">
                                         <span class="font-semibold">
-                                            {{-- {{ $profile->followers()->count() }} --}}
-                                            3
+                                            {{ $profile->followers()->count() }}
                                         </span> {{ __('followers') }}</a></li>
-                                {{-- <li class="me-10"><a href="{{ route('following') }}"> --}}
-                                <li class="me-10"><a href="#">
+                                <li class="me-10"><a href="{{ route('following') }}">
                                         <span class="font-semibold">
-                                            5
-                                            {{-- {{ $profile->follows()->count() }} --}}
+                                            {{ $profile->follows()->count() }}
                                         </span> {{ __('following') }}</a></li>
                             </ul>
                             <p class="mb-1 font-black">{{ $profile->name }}</p>
@@ -80,7 +75,7 @@
                     </div>
                 @endforeach
                 <div class="col-span-3 mt-10">
-                    {{ $posts->links() }}
+                    {{-- {{ $posts->links() }} --}}
                 </div>
             </div>
         @else
@@ -95,7 +90,7 @@
                                         <li class="inline-block font-semibold me-7">
                                             <span class="absolute h-1 w-1 overflow-hidden">{{ __('Likes:') }}</span>
                                             <i class="fas fa-heart" aria-hidden="true"></i>
-                                            {{ $post->likedByUsers->Count() }}
+                                            {{ $post->likedByUsers->count() }}
                                         </li>
                                         <li class="inline-block font-semibold">
                                             <span class="absolute h-1 w-1 overflow-hidden">{{ __('Comments:') }}</span>
@@ -108,7 +103,7 @@
                         </div>
                     @endforeach
                     <div class="col-span-3 mt-10">
-                        {{ $posts->links() }}
+                        {{-- {{ $posts->links() }} --}}
                     </div>
                 </div>
             @else

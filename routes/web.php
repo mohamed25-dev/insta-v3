@@ -13,6 +13,20 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return redirect("/" . auth()->user()->username);
 })->name('dashboard');
 
+Route::get('/followers', function () {
+    $user = auth()->user();
+    $followers = $user->followers()->get();
+
+    return view('followers', compact(['user', 'followers']));
+})->name('followers')->middleware('auth:sanctum');
+
+Route::get('/following', function () {
+    $user = auth()->user();
+    $following = $user->follows()->get();
+
+    return view('following', compact(['user', 'following']));
+})->name('following')->middleware('auth:sanctum');
+
 Route::get('{username}', function ($username) {
     $profile = User::where('username', $username)->first();
     if ($profile == null) {
