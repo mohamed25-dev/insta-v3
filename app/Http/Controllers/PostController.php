@@ -47,13 +47,15 @@ class PostController extends Controller
         ]);
 
         $imagePath = request('image_path')->store('uploads', 'public');
-        
-        $data['image_path']= $imagePath;
-        $data['user_id']= auth()->id();
+        $postCaption = $data['post_caption'];
 
-        Post::create($data);
+        // $data['image_path'] = $imagePath;
+        // $data['user_id'] = auth()->id();
 
-        return redirect()->route('user_profile', ['username' => auth()->user()->username]);
+        return view('applyFilter', compact('imagePath', 'postCaption'));
+        // Post::create($data);
+
+        // return redirect()->route('user_profile', ['username' => auth()->user()->username]);
     }
 
     /**
@@ -134,5 +136,7 @@ class PostController extends Controller
 
         $post->delete();
         Storage::delete("public/" . $post->image_path);
+
+        return redirect()->route('user_profile', ['username' => auth()->user()->username]);
     }
 }

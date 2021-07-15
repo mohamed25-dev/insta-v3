@@ -65,6 +65,6 @@ Route::get('{username}', function ($username) {
     $posts = $profile->posts()->get();
 
     return view('profile', compact('profile', 'posts'));
-});
+})->name('user_profile');
 
 Route::resource('posts', PostController::class);
