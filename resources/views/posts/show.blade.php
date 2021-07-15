@@ -15,7 +15,7 @@
                         id="sec1">
                         <div class="flex flex-row items-center">
                             <img src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->username }}"
-                                srcset="" class="rounded-full h-10 w-10 mr-3 ">
+                                srcset="" class="rounded-full h-10 w-10 me-3 ">
                             <a class="font-bold hover:underline"
                                 href="/{{ $post->user->username }}">{{ $post->user->username }} </a>
                         </div>
@@ -47,7 +47,7 @@
                                 <img src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->username }}"
                                     class="rounded-full h-10 w-10 ">
                             </div>
-                            <div class="col-span-4 mt-5 mr-7">
+                            <div class="col-span-4 mt-5 me-7">
                                 <a class="font-bold hover:underline"
                                     href="/{{ $post->user->username }}">{{ $post->user->username }} </a>
                                 <span>{{ $post->post_caption }}</span>
@@ -58,7 +58,7 @@
                                         class="rounded-full h-10 w-10 ">
                                 </div>
 
-                                <div class="col-span-4 ml-7">
+                                <div class="col-span-4 ms-7">
                                     <a class="font-bold hover:underline"
                                         href="/{{ $comment->user->username }}">{{ $comment->user->username }} </a>
                                     
@@ -70,14 +70,14 @@
                                                 action="{{ route('comments.destroy', $comment->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="text-xs ml-2" type="submit"
+                                                <button class="text-xs ms-2" type="submit"
                                                     onclick="return confirm('Are you sure you want to delete this Comment? this will delete your comment permanently.')">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>
                                         @endcan
                                         @can('update', $comment)
-                                            <a href="/comments/{{ $comment->id }}/edit" class="text-xs ml-2">
+                                            <a href="/comments/{{ $comment->id }}/edit" class="text-xs ms-2">
                                                 <i class="fas fa-edit"></i></a>
                                         @endcan
                                     </div>

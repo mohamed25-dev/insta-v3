@@ -38,7 +38,7 @@
                     </span>
                 </div>
 
-                <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
+                <x-jet-secondary-button class="mt-2 me-2" type="button" x-on:click.prevent="$refs.photo.click()">
                     {{ __('Select A New Photo') }}
                 </x-jet-secondary-button>
 
@@ -91,6 +91,17 @@
             <x-jet-input-error for="status" class="mt-2" />
         </div>
 
+        <!-- Language -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="lang" value="{{ __('Language') }}" />
+            <select name="lang" id="lang" class="mt-1 block w-full form-input rounded-md shadow-sm"
+            wire:model.defer="state.lang">
+                <option value="ar"> {{__('Arabic')}}</option>
+                <option value="en"> {{__('English')}}</option>
+            </select>
+            <x-jet-input-error for="lang" class="mt-2" />
+        </div>
+
          <!-- Email -->
          <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="email" value="{{ __('Email') }}" />
@@ -101,7 +112,7 @@
     </x-slot>
 
     <x-slot name="actions">
-        <x-jet-action-message class="mr-3" on="saved">
+        <x-jet-action-message class="me-3" on="saved">
             {{ __('Saved.') }}
         </x-jet-action-message>
 

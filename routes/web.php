@@ -5,7 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'lang'])->group(function () {
     Route::get('/followers', function () {
         $user = auth()->user();
         $followers = $user->followers()->paginate(12);
@@ -65,6 +65,16 @@ Route::get('{username}', function ($username) {
     $posts = $profile->posts()->paginate(9);
 
     return view('profile', compact('profile', 'posts'));
-})->name('user_profile');
+})->name('user_profile')->middleware('lang');
 
-Route::resource('posts', PostController::class);
+Route::resource('posts', PostController::class)->middleware('lang');
+
+Route::get('/setlang/{lang}', function ($lang) {
+    if ($lang == 'ar' || $lang == 'en') {
+        session(['lang' => $lang]);
+    } else {
+        abort(404);
+    }
+
+    return redirect()->back();
+});
