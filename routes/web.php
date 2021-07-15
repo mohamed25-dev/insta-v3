@@ -27,6 +27,15 @@ Route::get('/following', function () {
     return view('following', compact(['user', 'following']));
 })->name('following')->middleware('auth:sanctum');
 
+Route::get('/inbox', function () {
+    $user = auth()->user();
+
+    $pendingFollowingReq = $user->pendingFollowingReq();
+    $pendingFollowReq = $user->pendingFollowReq();
+
+    return view('inbox', compact('user', 'pendingFollowingReq', 'pendingFollowReq'));
+})->name('inbox')->middleware('auth:sanctum');
+
 Route::get('{username}', function ($username) {
     $profile = User::where('username', $username)->first();
     if ($profile == null) {

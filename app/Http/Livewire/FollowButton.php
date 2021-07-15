@@ -42,6 +42,7 @@ class FollowButton extends Component
         $user->toggle($profile);
 
         $this->followText = $user->following($profile) ? "unfollow" : "follow";
+        $user->acceptFollowRequest($profile);
     }
 
     public function render()

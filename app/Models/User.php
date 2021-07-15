@@ -97,4 +97,63 @@ class User extends Authenticatable
             ->where('following_user_id', $user->id)
             ->exists();
     }
+
+    public function acceptFollowRequest($user)
+    {
+        if ($user->status == 'public') {
+            DB::table('follows')
+                ->where('user_id', $this->id)
+                ->where('following_user_id', $user->id)
+                ->update(['accepted' => true]);
+        }
+    }
+
+    public function accepted(User $user)
+    {
+        if ($this->status == 'public') {
+            return true;
+        }
+
+        return (bool) DB::table('follows')
+            ->where('user_id', $user->id)
+            ->where('following_user_id', $this->id)
+            ->where('accepted', true)
+            ->count();
+    }
+
+    public function pendingFollowReq()
+    {
+        return $this->follows()
+            ->where('user_id', $this->id)
+            ->where('accepted', false)
+            ->latest()->get();
+    }
+
+    public function pendingFollowingReq()
+    {
+        if ($this->status == 'private') {
+            return $this->followers()
+                ->where('following_user_id', $this->id)
+                ->where('accepted', false)
+                ->latest()->get();
+        }
+
+        return null;
+    }
+
+    public function followingAndAccepted(User $user)
+    {
+        return
+            $this->follows()
+            ->where('following_user_id', $user->id)
+            ->where('accepted', true)
+            ->exists();
+    }
+
+    public function toggleAccepted (User $user, $state) {
+        DB::table('follows')
+        ->where('user_id', $user->id)
+        ->where('following_user_id', $this->id)
+        ->update(['accepted' => $state]);
+    }
 }
