@@ -75,7 +75,7 @@
                     </div>
                 @endforeach
                 <div class="col-span-3 mt-10">
-                    {{-- {{ $posts->links() }} --}}
+                    {{ $posts->links() }}
                 </div>
             </div>
         @else
@@ -103,7 +103,7 @@
                         </div>
                     @endforeach
                     <div class="col-span-3 mt-10">
-                        {{-- {{ $posts->links() }} --}}
+                        {{ $posts->links() }}
                     </div>
                 </div>
             @else

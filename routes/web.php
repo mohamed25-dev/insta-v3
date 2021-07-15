@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/followers', function () {
         $user = auth()->user();
-        $followers = $user->followers()->get();
+        $followers = $user->followers()->paginate(12);
 
         return view('followers', compact(['user', 'followers']));
     })->name('followers');
@@ -22,7 +22,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/following', function () {
         $user = auth()->user();
-        $following = $user->follows()->get();
+        $following = $user->follows()->paginate(12);
 
         return view('following', compact(['user', 'following']));
     })->name('following');
@@ -62,7 +62,7 @@ Route::get('{username}', function ($username) {
         abort(404);
     }
 
-    $posts = $profile->posts()->get();
+    $posts = $profile->posts()->paginate(9);
 
     return view('profile', compact('profile', 'posts'));
 })->name('user_profile');

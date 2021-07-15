@@ -23,7 +23,7 @@
               </div>
               @endforeach
               <div class="col-span-3 mt-10">
-                  {{-- {{ $followers->links() }} --}}
+                  {{ $followers->links() }}
               </div>
           @else
           <div class="my-10 text-center">

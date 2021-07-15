@@ -60,7 +60,7 @@
           </div>
           @endforelse
           <div class="col-span-3 mt-10">
-              {{-- {{ $posts->links() }} --}}
+              {{ $posts->links() }}
           </div>
       </div>
       <div class="col-start-8 col-span-3 ms-4">

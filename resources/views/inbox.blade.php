@@ -29,7 +29,7 @@
                     </div>
                 @endforeach
                 <div class="col-span-3 mt-10">
-                    {{-- {{ $pendingFollowingReq->links() }} --}}
+                    {{ $pendingFollowingReq->links() }}
                 </div>
             @else
                 <div class="my-10 text-center">
@@ -59,7 +59,7 @@
                     </div>
                 @endforeach
                 <div class="col-span-3 mt-10">
-                    {{-- {{ $pendingFollowReq->links() }} --}}
+                    {{ $pendingFollowReq->links() }}
                 </div>
             @else
                 <div class="my-10 text-center">
