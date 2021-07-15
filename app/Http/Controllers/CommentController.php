@@ -42,7 +42,7 @@ class CommentController extends Controller
             ]
         );
 
-        Post::findOrFail(request('post_id'));
+        Post::findOrFail($data['post_id']);
         $data['user_id'] = auth()->id();
 
         Comment::create($data);

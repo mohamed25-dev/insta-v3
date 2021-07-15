@@ -15,7 +15,7 @@
                         id="sec1">
                         <div class="flex flex-row items-center">
                             <img src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->username }}"
-                                srcset="" class="rounded-full h-10 w-10 me-3 ">
+                                srcset="" class="rounded-full h-10 w-10 mr-3 ">
                             <a class="font-bold hover:underline"
                                 href="/{{ $post->user->username }}">{{ $post->user->username }} </a>
                         </div>
@@ -40,13 +40,14 @@
                             @livewire('follow-button',['profileId' => $post->user->id ], key($post->user->id))
                         @endcannot
                     </div>
+
                     <div class="border-b border-solid border-gray-300 h-full">
                         <div class="grid grid-cols-5 overflow-y-auto" id="commentArea">
                             <div class="col-span-1 m-3">
                                 <img src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->username }}"
                                     class="rounded-full h-10 w-10 ">
                             </div>
-                            <div class="col-span-4 mt-5 me-7">
+                            <div class="col-span-4 mt-5 mr-7">
                                 <a class="font-bold hover:underline"
                                     href="/{{ $post->user->username }}">{{ $post->user->username }} </a>
                                 <span>{{ $post->post_caption }}</span>
@@ -54,40 +55,44 @@
                             @foreach ($post->comments as $comment)
                                 <div class="col-span-1 m-3">
                                     <img src="{{ $comment->user->profile_photo_url }}"
-                                        alt="{{ $comment->user->username }}" srcset=""
                                         class="rounded-full h-10 w-10 ">
                                 </div>
-                                <div class="col-span-4 mt-5 me-7">
+
+                                <div class="col-span-4 ml-7">
                                     <a class="font-bold hover:underline"
                                         href="/{{ $comment->user->username }}">{{ $comment->user->username }} </a>
+                                    
                                     <span>{{ $comment->comment }}</span>
+
                                     <div class="text-gray-500 text-xs">{{ $comment->created_at->format('M j o') }}
                                         @can('delete', $comment)
                                             <form class="inline-block"
                                                 action="{{ route('comments.destroy', $comment->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="text-xs ms-2" type="submit"
+                                                <button class="text-xs ml-2" type="submit"
                                                     onclick="return confirm('Are you sure you want to delete this Comment? this will delete your comment permanently.')">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>
                                         @endcan
                                         @can('update', $comment)
-                                            <a href="/comments/{{ $comment->id }}/edit" class="text-xs ms-2"><i
-                                                    class="fas fa-edit"></i></a>
+                                            <a href="/comments/{{ $comment->id }}/edit" class="text-xs ml-2">
+                                                <i class="fas fa-edit"></i></a>
                                         @endcan
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                     </div>
+                    
                     <div class="flex flex-col" id="sec3">
                         @livewire('like-button', ['postId' => $post->id], key($post->id))
                         <div class="border-b border-solid border-gray-300 ps-4 pb-1 text-xs">
                             {{ $post->created_at->format('M j o') }}
                         </div>
                     </div>
+
                     <div class="p-4" id="sec4">
                         @if (Auth::check())
                             <form action="/comments" method="post" autocomplete="off">
@@ -96,7 +101,7 @@
                                     <input class="w-full outline-none border-none p-1" type="text"
                                         id="comment{{ $post->id }}" placeholder="{{ __('Add Comment') }}"
                                         name="comment" autofocus />
-                                    <input type="hidden" name="postId" value="{{ $post->id }}">
+                                    <input type="hidden" name="post_id" value="{{ $post->id }}">
                                     <button class="text-blue-500 font-semibold hover:text-blue-700"
                                         type="submit">{{ __('Post') }}</button>
                                 </div>
