@@ -5,36 +5,56 @@ use App\Http\Controllers\PostController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/followers', function () {
+        $user = auth()->user();
+        $followers = $user->followers()->get();
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return redirect("/" . auth()->user()->username);
-})->name('dashboard');
+        return view('followers', compact(['user', 'followers']));
+    })->name('followers');
 
-Route::get('/followers', function () {
-    $user = auth()->user();
-    $followers = $user->followers()->get();
+    Route::get('/explore', function () {
+        $user = auth()->user();
+        $posts = $user->explore();
 
-    return view('followers', compact(['user', 'followers']));
-})->name('followers')->middleware('auth:sanctum');
+        return view('explore', compact(['user', 'posts']));
+    })->name('explore');
 
-Route::get('/following', function () {
-    $user = auth()->user();
-    $following = $user->follows()->get();
+    Route::get('/following', function () {
+        $user = auth()->user();
+        $following = $user->follows()->get();
 
-    return view('following', compact(['user', 'following']));
-})->name('following')->middleware('auth:sanctum');
+        return view('following', compact(['user', 'following']));
+    })->name('following');
 
-Route::get('/inbox', function () {
-    $user = auth()->user();
+    Route::get('/inbox', function () {
+        $user = auth()->user();
 
-    $pendingFollowingReq = $user->pendingFollowingReq();
-    $pendingFollowReq = $user->pendingFollowReq();
+        $pendingFollowingReq = $user->pendingFollowingReq();
+        $pendingFollowReq = $user->pendingFollowReq();
 
-    return view('inbox', compact('user', 'pendingFollowingReq', 'pendingFollowReq'));
-})->name('inbox')->middleware('auth:sanctum');
+        return view('inbox', compact('user', 'pendingFollowingReq', 'pendingFollowReq'));
+    })->name('inbox');
+
+    Route::get('/home', function () {
+        $posts = auth()->user()->home();
+        $profile = auth()->user();
+
+        $iFollow = auth()->user()->iFollow();
+        $toFollow = auth()->user()->toFollow()->take(3);
+
+        return view('home', compact('posts', 'profile', 'iFollow', 'toFollow'));
+    })->name('home');
+
+    Route::get('/', function () {
+        return redirect("/" . auth()->user()->username);
+    });
+
+    Route::resource('comments', CommentController::class);
+});
+
+
+
 
 Route::get('{username}', function ($username) {
     $profile = User::where('username', $username)->first();
@@ -45,8 +65,6 @@ Route::get('{username}', function ($username) {
     $posts = $profile->posts()->get();
 
     return view('profile', compact('profile', 'posts'));
-})->name('user_profile')->middleware('auth');
+});
 
 Route::resource('posts', PostController::class);
-Route::resource('comments', CommentController::class);
-

@@ -156,4 +156,35 @@ class User extends Authenticatable
         ->where('following_user_id', $this->id)
         ->update(['accepted' => $state]);
     }
+
+    public function home () {
+        $ids = $this->follows()->where('accepted', true)->get()->pluck('id');
+        $posts = Post::whereIn('user_id', $ids)->latest()->get();
+
+        return $posts;
+    }
+
+    public function iFollow () {
+        return $this->follows()->where('accepted', true)->get();
+    }
+
+    public function toFollow () {
+        $ids = $this->iFollow()->pluck('id')->toArray();
+        $pendingReq = $this->pendingFollowReq()->pluck('id')->toArray();
+        
+        array_push($ids, $this->id);
+        $others = array_merge($ids,$pendingReq);
+
+        return User::whereNotIn('id', $others)->latest()->get();
+    }
+
+    public function explore () {
+        $ids = $this->iFollow()->pluck('id')->toArray();
+        $privateUsers = User::where('status', 'private')->pluck('id')->toArray();
+        
+        array_push($ids, $this->id);
+        $others = array_merge($ids,$privateUsers);
+
+        return Post::whereNotIn('user_id', $others)->latest()->get();
+    }
 }

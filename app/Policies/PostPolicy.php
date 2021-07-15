@@ -30,7 +30,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        if ($post->user->status == 'public' || $user->id == $post->user->id || $user->followingAndAccepted($post->user->id)) {
+        if ($post->user->status == 'public' || $user->id == $post->user->id || $user->followingAndAccepted($post->user)) {
             return true;
         }
 
